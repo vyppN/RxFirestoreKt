@@ -22,6 +22,7 @@ inline fun <reified T> DocumentReference.getObservable(): Observable<T> {
             documentSnapshot?.let {
                 if (documentSnapshot.exists()) {
                     try {
+                        documentSnapshot.data?.put("document_id",documentSnapshot.id)
                         emitter.onNext(documentSnapshot.toObject(T::class.java))
                     } catch (e: Exception) {
                         emitter.onError(e)
